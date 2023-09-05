@@ -17,7 +17,7 @@ defmodule LiveViewStudioWeb.Components.VolunteerExamples do
       <div id="volunteers">
         <C.Volunteer
           :for={volunteer <- volunteers()}
-          volunteer={volunteer}
+          {...C.Volunteer.to_prop(volunteer)}
           id={"volunteer-#{volunteer.id}"}
           click={nil}
         />
@@ -35,7 +35,7 @@ defmodule LiveViewStudioWeb.Components.VolunteerExamples do
     ~F"""
     <C.Volunteer
       :for={volunteer <- volunteers()}
-      volunteer={volunteer}
+      {...C.Volunteer.to_prop(volunteer)}
       id={"volunteer-#{volunteer.id}"}
       click={nil}
     />

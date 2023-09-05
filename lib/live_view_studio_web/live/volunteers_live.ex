@@ -29,8 +29,8 @@ defmodule LiveViewStudioWeb.VolunteersLive do
 
       <div id="volunteers" phx-update="stream">
         <C.Volunteer
-          :for={{dom_id, volunteer} <- @streams.volunteers}
-          volunteer={volunteer}
+          :for={{dom_id, v} <- @streams.volunteers}
+          {...C.Volunteer.to_prop(v)}
           id={dom_id}
           click="toggle-status"
         />
