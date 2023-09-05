@@ -3,6 +3,7 @@ defmodule LiveViewStudioWeb.Components.VolunteerExamples do
 
   use Surface.Catalogue.Examples, subject: C.Volunteer
   alias LiveViewStudio.Volunteers.Volunteer
+  require C.Volunteer
 
   @example [
     title: "Wrapped",
