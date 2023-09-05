@@ -1,5 +1,5 @@
 defmodule LiveViewStudioWeb.BookingsLive do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :surface_live_view
 
   alias LiveViewStudio.Bookings
   import Number.Currency
@@ -13,7 +13,7 @@ defmodule LiveViewStudioWeb.BookingsLive do
   end
 
   def render(assigns) do
-    ~H"""
+    ~F"""
     <h1>Bookings</h1>
     <div id="bookings">
       <div phx-update="ignore" id="wrapper">
@@ -22,18 +22,18 @@ defmodule LiveViewStudioWeb.BookingsLive do
       <div :if={@selected_dates} class="details">
         <div>
           <span class="date">
-            <%= format_date(@selected_dates.from) %>
+            {format_date(@selected_dates.from)}
           </span>
           -
           <span class="date">
-            <%= format_date(@selected_dates.to) %>
+            {format_date(@selected_dates.to)}
           </span>
           <span class="nights">
-            (<%= total_nights(@selected_dates) %> nights)
+            ({total_nights(@selected_dates)} nights)
           </span>
         </div>
         <div class="price">
-          <%= total_price(@selected_dates) %>
+          {total_price(@selected_dates)}
         </div>
         <button phx-click="book-selected-dates">
           Book Dates

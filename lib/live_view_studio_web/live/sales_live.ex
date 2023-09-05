@@ -1,5 +1,5 @@
 defmodule LiveViewStudioWeb.SalesLive do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :surface_live_view
 
   alias LiveViewStudio.Sales
 
@@ -12,13 +12,13 @@ defmodule LiveViewStudioWeb.SalesLive do
   end
 
   def render(assigns) do
-    ~H"""
+    ~F"""
     <h1>Snappy Sales 📊</h1>
     <div id="sales">
       <div class="stats">
         <div class="stat">
           <span class="value">
-            <%= @new_orders %>
+            {@new_orders}
           </span>
           <span class="label">
             New Orders
@@ -26,7 +26,7 @@ defmodule LiveViewStudioWeb.SalesLive do
         </div>
         <div class="stat">
           <span class="value">
-            $<%= @sales_amount %>
+            ${@sales_amount}
           </span>
           <span class="label">
             Sales Amount
@@ -34,7 +34,7 @@ defmodule LiveViewStudioWeb.SalesLive do
         </div>
         <div class="stat">
           <span class="value">
-            <%= @satisfaction %>%
+            {@satisfaction}%
           </span>
           <span class="label">
             Satisfaction
@@ -42,8 +42,8 @@ defmodule LiveViewStudioWeb.SalesLive do
         </div>
       </div>
 
-      <button phx-click="refresh">
-        <img src="/images/refresh.svg" /> Refresh
+      <button :on-click="refresh">
+        <img src="/images/refresh.svg"> Refresh
       </button>
     </div>
     """

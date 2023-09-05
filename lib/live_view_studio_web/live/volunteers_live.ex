@@ -1,8 +1,9 @@
 defmodule LiveViewStudioWeb.VolunteersLive do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :surface_live_view
 
   alias LiveViewStudio.Volunteers
-  alias LiveViewStudioWeb.VolunteerFormComponent
+  alias LiveViewStudioWeb.Components, as: C
+  alias LiveViewStudioWeb.LiveComponents, as: LC
 
   def mount(_params, _session, socket) do
     if connected?(socket) do
@@ -20,44 +21,19 @@ defmodule LiveViewStudioWeb.VolunteersLive do
   end
 
   def render(assigns) do
-    ~H"""
+    ~F"""
     <h1>Volunteer Check-In</h1>
     <div id="volunteer-checkin">
-      <.live_component
-        module={VolunteerFormComponent}
-        id={:new}
-        count={@count}
-      />
+      {!-- <.live_component module={VolunteerFormComponent} id={:new} count={@count} /> --}
+      <LC.VolunteerForm id={:new} count={@count} />
 
       <div id="volunteers" phx-update="stream">
-        <.volunteer
-          :for={{volunteer_id, volunteer} <- @streams.volunteers}
+        <C.Volunteer
+          :for={{dom_id, volunteer} <- @streams.volunteers}
           volunteer={volunteer}
-          id={volunteer_id}
+          id={dom_id}
+          click="toggle-status"
         />
-      </div>
-    </div>
-    """
-  end
-
-  def volunteer(assigns) do
-    ~H"""
-    <div
-      class={"volunteer #{if @volunteer.checked_out, do: "out"}"}
-      id={@id}
-    >
-      <div class="name">
-        <%= @volunteer.name %>
-      </div>
-      <div class="phone">
-        <%= @volunteer.phone %>
-      </div>
-      <div class="status">
-        <button phx-click="toggle-status" phx-value-id={@volunteer.id}>
-          <%= if @volunteer.checked_out,
-            do: "Check In",
-            else: "Check Out" %>
-        </button>
       </div>
     </div>
     """

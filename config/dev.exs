@@ -19,7 +19,7 @@ config :live_view_studio, LiveViewStudio.Repo,
 config :live_view_studio, LiveViewStudioWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [ip: {127, 0, 0, 1}, port: 4100],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
@@ -27,7 +27,8 @@ config :live_view_studio, LiveViewStudioWeb.Endpoint,
   secret_key_base: "Gy3xNoXRI88VUQ53jb/SHMD1knd7eB+zIZ3jKFJoUiv4saUoYrdmXku9zURH+BDQ",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]},
+    esbuild: {Esbuild, :install_and_run, [:catalogue, ~w(--sourcemap=inline --watch)]}
   ]
 
 # ## SSL Support
@@ -55,11 +56,13 @@ config :live_view_studio, LiveViewStudioWeb.Endpoint,
 
 # Watch static and templates for browser reloading.
 config :live_view_studio, LiveViewStudioWeb.Endpoint,
+  reloadable_compilers: [:gettext, :elixir, :app, :surface],
   live_reload: [
     patterns: [
       ~r"priv/static/(?!uploads).*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/live_view_studio_web/(controllers|live|components)/.*(ex|heex)$"
+      ~r"lib/live_view_studio_web/(controllers|live|components)/.*(ex|heex|sface|js)$",
+      ~r"priv/catalogue/.*(ex)$"
     ]
   ]
 

@@ -1,13 +1,20 @@
-defmodule LiveViewStudioWeb.VolunteerFormComponent do
-  use LiveViewStudioWeb, :live_component
+defmodule LiveViewStudioWeb.LiveComponents.VolunteerForm do
+  use LiveViewStudioWeb, :surface_live_component
 
   alias LiveViewStudio.Volunteers
   alias LiveViewStudio.Volunteers.Volunteer
+  alias Phoenix.Component, as: PC
+  alias LiveViewStudioWeb.CoreComponents, as: Core
+  alias Surface.Components.Form
+
+  prop count, :integer, required: true
+
+  data form, :any
 
   def mount(socket) do
     changeset = Volunteers.change_volunteer(%Volunteer{})
 
-    {:ok, assign(socket, :form, to_form(changeset))}
+    {:ok, assign(socket, :form, PC.to_form(changeset))}
   end
 
   def update(assigns, socket) do
@@ -20,34 +27,24 @@ defmodule LiveViewStudioWeb.VolunteerFormComponent do
   end
 
   def render(assigns) do
-    ~H"""
+    ~F"""
     <div>
       <div class="count">
-        Go for it! You'll be volunteer #<%= @count %>
+        Go for it! You'll be volunteer #{@count}
       </div>
-      <.form
-        for={@form}
-        phx-submit="save"
-        phx-change="validate"
-        phx-target={@myself}
-      >
-        <.input
-          field={@form[:name]}
-          placeholder="Name"
-          autocomplete="off"
-          phx-debounce="2000"
-        />
-        <.input
+      <Form for={@form} submit="save" change="validate">
+        <Core.input field={@form[:name]} placeholder="Name" autocomplete="off" phx-debounce="2000" />
+        <Core.input
           field={@form[:phone]}
           type="tel"
           placeholder="Phone"
           autocomplete="off"
           phx-debounce="blur"
         />
-        <.button phx-disable-with="Saving...">
+        <Core.button phx-disable-with="Saving...">
           Check In
-        </.button>
-      </.form>
+        </Core.button>
+      </Form>
     </div>
     """
   end

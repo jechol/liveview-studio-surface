@@ -1,5 +1,5 @@
 defmodule LiveViewStudioWeb.LightLive do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :surface_live_view
 
   def mount(_params, _session, socket) do
     socket = assign(socket, brightness: 10)
@@ -7,25 +7,25 @@ defmodule LiveViewStudioWeb.LightLive do
   end
 
   def render(assigns) do
-    ~H"""
+    ~F"""
     <h1>Front Porch Light</h1>
     <div id="light">
       <div class="meter">
-        <span style={"width: #{@brightness}%"}>
-          <%= @brightness %>%
+        <span style={width: "#{@brightness}%"}>
+          {@brightness}%
         </span>
       </div>
-      <button phx-click="off">
-        <img src="/images/light-off.svg" />
+      <button :on-click="off">
+        <img src="/images/light-off.svg">
       </button>
-      <button phx-click="down">
-        <img src="/images/down.svg" />
+      <button :on-click="down">
+        <img src="/images/down.svg">
       </button>
-      <button phx-click="up">
-        <img src="/images/up.svg" />
+      <button :on-click="up">
+        <img src="/images/up.svg">
       </button>
-      <button phx-click="on">
-        <img src="/images/light-on.svg" />
+      <button :on-click="on">
+        <img src="/images/light-on.svg">
       </button>
     </div>
     """

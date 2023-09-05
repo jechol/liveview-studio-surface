@@ -9,7 +9,8 @@ defmodule LiveViewStudio.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      compilers: Mix.compilers() ++ [:surface]
     ]
   end
 
@@ -24,7 +25,8 @@ defmodule LiveViewStudio.MixProject do
   end
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:test), do: ["lib", "test/support"] ++ catalogues()
+  defp elixirc_paths(:dev), do: ["lib"] ++ catalogues()
   defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
@@ -54,7 +56,9 @@ defmodule LiveViewStudio.MixProject do
       {:bcrypt_elixir, "~> 3.0"},
       {:faker, "~> 0.17.0"},
       {:number, "~> 1.0"},
-      {:timex, "~> 3.7"}
+      {:timex, "~> 3.7"},
+      {:surface, ">= 0.0.0"},
+      {:surface_catalogue, "~> 0.6.0"}
     ]
   end
 
@@ -83,6 +87,12 @@ defmodule LiveViewStudio.MixProject do
         "esbuild default --minify",
         "phx.digest"
       ]
+    ]
+  end
+
+  def catalogues do
+    [
+      "priv/catalogue"
     ]
   end
 end

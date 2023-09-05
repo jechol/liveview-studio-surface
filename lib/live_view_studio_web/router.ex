@@ -1,6 +1,8 @@
 defmodule LiveViewStudioWeb.Router do
   use LiveViewStudioWeb, :router
 
+  import Surface.Catalogue.Router
+
   import LiveViewStudioWeb.UserAuth
 
   pipeline :browser do
@@ -25,6 +27,8 @@ defmodule LiveViewStudioWeb.Router do
       live "/topsecret", TopSecretLive
       live "/presence", PresenceLive
     end
+
+    live "/demo", Demo
   end
 
   scope "/", LiveViewStudioWeb do
@@ -107,6 +111,13 @@ defmodule LiveViewStudioWeb.Router do
       on_mount: [{LiveViewStudioWeb.UserAuth, :mount_current_user}] do
       live "/users/confirm/:token", UserConfirmationLive, :edit
       live "/users/confirm", UserConfirmationInstructionsLive, :new
+    end
+  end
+
+  if Mix.env() == :dev do
+    scope "/" do
+      pipe_through :browser
+      surface_catalogue("/catalogue")
     end
   end
 end

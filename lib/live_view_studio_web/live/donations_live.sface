@@ -1,0 +1,63 @@
+<h1>Food Bank Donations</h1>
+<div id="donations">
+  <form phx-change="select-per-page">
+    <select name="per-page">
+      {Phoenix.HTML.Form.options_for_select(
+        [5, 10, 15, 20],
+        @options.per_page
+      )}
+    </select>
+    <label for="per-page">per page</label>
+  </form>
+
+  <div class="wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th class="item">
+            <SortLink sort_by={:item} options={@options}>
+              Item
+            </SortLink>
+          </th>
+          <th>
+            <SortLink sort_by={:quantity} options={@options}>
+              Quantity
+            </SortLink>
+          </th>
+          <th>
+            <SortLink sort_by={:days_until_expires} options={@options}>
+              Days Until Expires
+            </SortLink>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr :for={donation <- @donations}>
+          <td class="item">
+            <span class="id">{donation.id}</span>
+            <span class="emoji">{donation.emoji}</span>
+            {donation.item}
+          </td>
+          <td class="quantity">
+            {donation.quantity} lbs
+          </td>
+          <td class="expires">
+            <span class={if donation.days_until_expires <= 10, do: "eat-soon"}>
+              {donation.days_until_expires}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="footer">
+      <div class="pagination">
+        <LivePatch :if={@options.page > 1} to={~p"/donations?#{%{@options | page: @options.page - 1}}"}>
+          Previous
+        </LivePatch>
+        <LivePatch to={~p"/donations?#{%{@options | page: @options.page + 1}}"}>
+          Next
+        </LivePatch>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,38 @@
 defmodule LiveViewStudioWeb.DonationsLive do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :surface_live_view
 
+  alias Surface.Components.LivePatch
   alias LiveViewStudio.Donations
+
+  defmodule SortLink do
+    use LiveViewStudioWeb, :surface_component
+
+    prop sort_by, :atom, required: true
+    prop options, :map, required: true
+
+    slot default, required: true
+
+    def render(%{sort_by: sort_by, options: options} = assigns) do
+      options = %{
+        options
+        | sort_by: sort_by,
+          sort_order: next_sort_order(options.sort_order)
+      }
+
+      ~F"""
+      <LivePatch to={~p"/donations?#{options}"}>
+        <#slot />
+      </LivePatch>
+      """
+    end
+
+    defp next_sort_order(sort_order) do
+      case sort_order do
+        :asc -> :desc
+        :desc -> :asc
+      end
+    end
+  end
 
   def mount(_params, _session, socket) do
     {:ok, socket}
@@ -32,34 +63,11 @@ defmodule LiveViewStudioWeb.DonationsLive do
     {:noreply, socket}
   end
 
-  def sort_link(assigns) do
-    params = %{
-      assigns.options
-      | sort_by: assigns.sort_by,
-        sort_order: next_sort_order(assigns.options.sort_order)
-    }
-
-    assigns = assign(assigns, params: params)
-
-    ~H"""
-    <.link patch={~p"/donations?#{@params}"}>
-      <%= render_slot(@inner_block) %>
-    </.link>
-    """
-  end
-
   def handle_event("select-per-page", %{"per-page" => per_page}, socket) do
     params = %{socket.assigns.options | per_page: per_page}
 
     socket = push_patch(socket, to: ~p"/donations?#{params}")
 
     {:noreply, socket}
-  end
-
-  defp next_sort_order(sort_order) do
-    case sort_order do
-      :asc -> :desc
-      :desc -> :asc
-    end
   end
 end

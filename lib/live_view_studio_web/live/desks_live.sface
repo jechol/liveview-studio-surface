@@ -1,35 +1,35 @@
 <h1>What's On Your Desk?</h1>
 <div id="desks">
-  <.form for={@form} phx-submit="save" phx-change="validate">
-    <.input field={@form[:name]} placeholder="Name" />
+  <Form for={@form} submit="save" change="validate">
+    <C.input field={@form[:name]} placeholder="Name" />
 
     <div class="hint">
-      Add up to <%= @uploads.photos.max_entries %> photos
-      (max <%= trunc(@uploads.photos.max_file_size / 1_000_000) %> MB each)
+      Add up to {@uploads.photos.max_entries} photos
+      (max {trunc(@uploads.photos.max_file_size / 1_000_000)} MB each)
     </div>
 
     <div class="drop" phx-drop-target={@uploads.photos.ref}>
-      <.live_file_input upload={@uploads.photos} />
+      <Phoenix.Component.live_file_input upload={@uploads.photos} />
       or drag and drop here
     </div>
 
-    <.error :for={err <- upload_errors(@uploads.photos)}>
-      <%= Phoenix.Naming.humanize(err) %>
-    </.error>
+    <C.error :for={err <- upload_errors(@uploads.photos)}>
+      {Phoenix.Naming.humanize(err)}
+    </C.error>
 
     <div :for={entry <- @uploads.photos.entries} class="entry">
-      <.live_img_preview entry={entry} />
+      <Phoenix.Component.live_img_preview entry={entry} />
 
       <div class="progress">
         <div class="value">
-          <%= entry.progress %>%
+          {entry.progress}%
         </div>
         <div class="bar">
           <span style={"width: #{entry.progress}%"}></span>
         </div>
-        <.error :for={err <- upload_errors(@uploads.photos, entry)}>
-          <%= Phoenix.Naming.humanize(err) %>
-        </.error>
+        <C.error :for={err <- upload_errors(@uploads.photos, entry)}>
+          {Phoenix.Naming.humanize(err)}
+        </C.error>
       </div>
 
       <a phx-click="cancel" phx-value-ref={entry.ref}>
@@ -40,7 +40,7 @@
     <.button phx-disable-with="Uploading...">
       Upload
     </.button>
-  </.form>
+  </Form>
 
   <div id="photos" phx-update="stream">
     <div :for={{dom_id, desk} <- @streams.desks} id={dom_id}>
@@ -53,7 +53,7 @@
       >
         <img src={photo_location} />
         <div class="name">
-          <%= desk.name %> (<%= index + 1 %>)
+          {desk.name} ({index + 1})
         </div>
       </div>
     </div>

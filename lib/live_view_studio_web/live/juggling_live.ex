@@ -1,5 +1,5 @@
 defmodule LiveViewStudioWeb.JugglingLive do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :surface_live_view
 
   def mount(_params, _session, socket) do
     images =
@@ -17,7 +17,7 @@ defmodule LiveViewStudioWeb.JugglingLive do
   end
 
   def render(assigns) do
-    ~H"""
+    ~F"""
     <h1>Juggling Key Events</h1>
     <div id="juggling" phx-window-keyup="update">
       <div class="legend">
@@ -28,7 +28,7 @@ defmodule LiveViewStudioWeb.JugglingLive do
 
       <div class="footer">
         <div class="filename">
-          <%= Enum.at(@images, @current) %>
+          {Enum.at(@images, @current)}
         </div>
 
         <input
@@ -39,7 +39,7 @@ defmodule LiveViewStudioWeb.JugglingLive do
         />
 
         <button phx-click="toggle-playing">
-          <%= if @is_playing, do: "Pause", else: "Play" %>
+          {if @is_playing, do: "Pause", else: "Play"}
         </button>
       </div>
     </div>

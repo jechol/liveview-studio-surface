@@ -9,7 +9,7 @@
     >
       <.icon name="hero-shopping-cart" />
       <span class="count">
-        <%= Enum.count(@cart) %>
+        {Enum.count(@cart)}
       </span>
     </button>
   </div>
@@ -17,10 +17,10 @@
   <div class="products">
     <div :for={product <- @products} class="product">
       <div class="image">
-        <%= product.image %>
+        {product.image}
       </div>
       <div class="name">
-        <%= product.name %>
+        {product.name}
       </div>
       <button phx-click={
         JS.push("add-product", value: %{product: product.image})
@@ -33,12 +33,12 @@
 
   <div
     id="backdrop"
-    class={unless @show_cart, do: "hidden"}
+    class={hidden: !@show_cart}
     phx-click={toggle_cart()}
   >
   </div>
 
-  <div id="cart" class={unless @show_cart, do: "hidden"}>
+  <div id="cart" class={hidden: !@show_cart}>
     <div class="content">
       <div class="header">
         <h2>Shopping Cart</h2>
@@ -49,10 +49,10 @@
       <ul>
         <li :for={{product, quantity} <- @cart}>
           <span class="product">
-            <%= product %>
+            {product}
           </span>
           <span class="quantity">
-            &times; <%= quantity %>
+            &times; {quantity}
           </span>
         </li>
       </ul>

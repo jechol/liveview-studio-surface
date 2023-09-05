@@ -1,5 +1,5 @@
 defmodule LiveViewStudioWeb.ShopLive do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :surface_live_view
 
   alias LiveViewStudio.Products
   alias Phoenix.LiveView.JS

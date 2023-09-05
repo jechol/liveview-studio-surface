@@ -1,12 +1,14 @@
 defmodule LiveViewStudioWeb.DesksLive do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :surface_live_view
 
   alias LiveViewStudio.Desks
   alias LiveViewStudio.Desks.Desk
+  alias LiveViewStudioWeb.CoreComponents, as: C
+  alias Surface.Components.Form
 
-  @s3_bucket "liveview-uploads"
+  @s3_bucket "jechol-surface"
   @s3_url "//#{@s3_bucket}.s3.amazonaws.com"
-  @s3_region "us-west-2"
+  @s3_region "ap-northeast-2"
 
   def mount(_params, _session, socket) do
     if connected?(socket), do: Desks.subscribe()
@@ -82,6 +84,7 @@ defmodule LiveViewStudioWeb.DesksLive do
         max_file_size: socket.assigns.uploads.photos.max_file_size,
         expires_in: :timer.hours(1)
       )
+      |> IO.inspect()
 
     metadata = %{
       uploader: "S3",

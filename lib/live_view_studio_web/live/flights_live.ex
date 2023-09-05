@@ -1,5 +1,5 @@
 defmodule LiveViewStudioWeb.FlightsLive do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :surface_live_view
 
   alias LiveViewStudio.Flights
   alias LiveViewStudio.Airports
@@ -17,10 +17,10 @@ defmodule LiveViewStudioWeb.FlightsLive do
   end
 
   def render(assigns) do
-    ~H"""
+    ~F"""
     <h1>Find a Flight</h1>
     <div id="flights">
-      <form phx-submit="search" phx-change="suggest">
+      <form :on-submit="search" :on-change="suggest">
         <input
           type="text"
           name="airport"
@@ -34,13 +34,13 @@ defmodule LiveViewStudioWeb.FlightsLive do
         />
 
         <button>
-          <img src="/images/search.svg" />
+          <img src="/images/search.svg">
         </button>
       </form>
 
       <datalist id="matches">
         <option :for={{code, name} <- @matches} value={code}>
-          <%= name %>
+          {name}
         </option>
       </datalist>
 
@@ -51,18 +51,18 @@ defmodule LiveViewStudioWeb.FlightsLive do
           <li :for={flight <- @flights}>
             <div class="first-line">
               <div class="number">
-                Flight #<%= flight.number %>
+                Flight #{flight.number}
               </div>
               <div class="origin-destination">
-                <%= flight.origin %> to <%= flight.destination %>
+                {flight.origin} to {flight.destination}
               </div>
             </div>
             <div class="second-line">
               <div class="departs">
-                Departs: <%= flight.departure_time %>
+                Departs: {flight.departure_time}
               </div>
               <div class="arrives">
-                Arrives: <%= flight.arrival_time %>
+                Arrives: {flight.arrival_time}
               </div>
             </div>
           </li>

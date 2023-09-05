@@ -26,7 +26,8 @@ import flatpickr from "../vendor/flatpickr"
 
 import Uploaders from "./uploaders"
 
-let Hooks = {}
+// let Hooks = {}
+import Hooks from "./_hooks"
 
 Hooks.Calendar = {
   mounted() {

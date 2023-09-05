@@ -1,5 +1,5 @@
 defmodule LiveViewStudioWeb.AthletesLive do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :surface_live_view
 
   alias LiveViewStudio.Athletes
 
@@ -14,39 +14,39 @@ defmodule LiveViewStudioWeb.AthletesLive do
   end
 
   def render(assigns) do
-    ~H"""
+    ~F"""
     <h1>Athletes</h1>
     <div id="athletes">
       <form>
         <div class="filters">
           <select name="sport">
-            <%= Phoenix.HTML.Form.options_for_select(
+            {Phoenix.HTML.Form.options_for_select(
               sport_options(),
               @filter.sport
-            ) %>
+            )}
           </select>
           <select name="status">
-            <%= Phoenix.HTML.Form.options_for_select(
+            {Phoenix.HTML.Form.options_for_select(
               status_options(),
               @filter.status
-            ) %>
+            )}
           </select>
         </div>
       </form>
       <div class="athletes">
         <div :for={athlete <- @athletes} class="athlete">
           <div class="emoji">
-            <%= athlete.emoji %>
+            {athlete.emoji}
           </div>
           <div class="name">
-            <%= athlete.name %>
+            {athlete.name}
           </div>
           <div class="details">
             <span class="sport">
-              <%= athlete.sport %>
+              {athlete.sport}
             </span>
             <span class="status">
-              <%= athlete.status %>
+              {athlete.status}
             </span>
           </div>
         </div>

@@ -1,5 +1,5 @@
 defmodule LiveViewStudioWeb.BingoLive do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :surface_live_view
 
   def mount(_params, _session, socket) do
     socket =
@@ -12,11 +12,11 @@ defmodule LiveViewStudioWeb.BingoLive do
   end
 
   def render(assigns) do
-    ~H"""
+    ~F"""
     <h1>Bingo Boss 📢</h1>
     <div id="bingo">
       <div class="number">
-        <%= @number %>
+        {@number}
       </div>
     </div>
     """

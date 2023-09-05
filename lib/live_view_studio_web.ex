@@ -58,9 +58,34 @@ defmodule LiveViewStudioWeb do
     end
   end
 
+  def surface_live_view do
+    quote do
+      use Surface.LiveView,
+        layout: {LiveViewStudioWeb.Layouts, :app}
+
+      unquote(html_helpers())
+    end
+  end
+
   def live_component do
     quote do
       use Phoenix.LiveComponent
+
+      unquote(html_helpers())
+    end
+  end
+
+  def surface_live_component do
+    quote do
+      use Surface.LiveComponent
+
+      unquote(html_helpers())
+    end
+  end
+
+  def surface_component do
+    quote do
+      use Surface.Component
 
       unquote(html_helpers())
     end
@@ -76,6 +101,7 @@ defmodule LiveViewStudioWeb do
 
       # Include general helpers for rendering HTML
       unquote(html_helpers())
+      import Surface
     end
   end
 

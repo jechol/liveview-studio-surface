@@ -1,5 +1,5 @@
 defmodule LiveViewStudioWeb.SandboxLive do
-  use LiveViewStudioWeb, :live_view
+  use LiveViewStudioWeb, :surface_live_view
 
   import Number.Currency
   alias LiveViewStudio.Sandbox
@@ -18,44 +18,42 @@ defmodule LiveViewStudioWeb.SandboxLive do
   end
 
   def render(assigns) do
-    ~H"""
+    ~F"""
     <h1>Build A Sandbox</h1>
     <div id="sandbox">
-      <form phx-change="calculate" phx-submit="get-quote">
+      <form :on-change="calculate" :on-submit="get-quote">
         <div class="fields">
           <div>
             <label for="length">Length</label>
             <div class="input">
-              <input type="number" name="length" value={@length} />
+              <input type="number" name="length" value={@length}>
               <span class="unit">feet</span>
             </div>
           </div>
           <div>
             <label for="width">Width</label>
             <div class="input">
-              <input type="number" name="width" value={@width} />
+              <input type="number" name="width" value={@width}>
               <span class="unit">feet</span>
             </div>
           </div>
           <div>
             <label for="depth">Depth</label>
             <div class="input">
-              <input type="number" name="depth" value={@depth} />
+              <input type="number" name="depth" value={@depth}>
               <span class="unit">inches</span>
             </div>
           </div>
         </div>
         <div class="weight">
-          You need <%= @weight %> pounds of sand 🏝
+          You need {@weight} pounds of sand 🏝
         </div>
         <button type="submit">
           Get A Quote
         </button>
       </form>
       <div :if={@price} class="quote">
-        Get your personal beach today for only <%= number_to_currency(
-          @price
-        ) %>
+        Get your personal beach today for only {number_to_currency(@price)}
       </div>
     </div>
     """
