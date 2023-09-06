@@ -14,6 +14,33 @@ defmodule LiveViewStudioWeb.BookingsLive do
 
   def render(assigns) do
     ~F"""
+    <style>
+      #bookings {
+        @apply mt-8 max-w-3xl mx-auto text-center;
+      }
+      #bookings :deep(.flatpickr-calendar) {
+        @apply mt-10 mx-auto;
+      }
+      #bookings #booking-calendar :deep(div.placeholder) {
+        @apply flex items-center justify-center mx-auto w-1/2 h-24 border-4 border-dashed border-slate-400 text-slate-500;
+      }
+      #bookings .details {
+        @apply max-w-xl mx-auto flex items-center justify-between my-6 text-lg;
+      }
+      #bookings .details .date {
+        @apply text-slate-800 font-extrabold;
+      }
+      #bookings .details .nights {
+        @apply font-medium text-slate-600;
+      }
+      #bookings .details .price {
+        @apply font-extrabold text-sky-600;
+      }
+      #bookings button {
+        @apply inline-flex items-center px-4 py-2 border-sky-400 text-sm shadow-sm font-medium rounded-md text-white bg-sky-500 transition ease-in-out duration-150 outline-none border border-transparent hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-600;
+      }
+    </style>
+
     <h1>Bookings</h1>
     <div id="bookings">
       <div phx-update="ignore" id="wrapper">

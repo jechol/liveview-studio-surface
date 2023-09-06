@@ -22,9 +22,17 @@ defmodule LiveViewStudioWeb.VolunteersLive do
 
   def render(assigns) do
     ~F"""
+    <style>
+      #volunteer-checkin {
+        @apply mt-8 max-w-3xl mx-auto mb-6;
+      }
+      #volunteer-checkin h2 {
+        @apply text-center text-2xl text-slate-500 mb-8;
+      }
+    </style>
+
     <h1>Volunteer Check-In</h1>
     <div id="volunteer-checkin">
-      {!-- <.live_component module={VolunteerFormComponent} id={:new} count={@count} /> --}
       <LC.VolunteerForm id={:new} count={@count} />
 
       <div id="volunteers" phx-update="stream">

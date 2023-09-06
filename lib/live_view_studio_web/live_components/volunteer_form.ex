@@ -7,9 +7,9 @@ defmodule LiveViewStudioWeb.LiveComponents.VolunteerForm do
   alias LiveViewStudioWeb.CoreComponents, as: Core
   alias Surface.Components.Form
 
-  prop count, :integer, required: true
+  prop(count, :integer, required: true)
 
-  data form, :any
+  data(form, :any)
 
   def mount(socket) do
     changeset = Volunteers.change_volunteer(%Volunteer{})
@@ -28,6 +28,29 @@ defmodule LiveViewStudioWeb.LiveComponents.VolunteerForm do
 
   def render(assigns) do
     ~F"""
+    <style>
+      div.count {
+        @apply py-2 text-lg font-bold text-sky-500;
+      }
+      :deep(form) {
+        @apply px-6 py-4 border-dashed border-2 border-slate-400 mb-8 flex items-baseline justify-around;
+      }
+      :deep(form div[phx-feedback-for*="volunteer"]) {
+        @apply flex-1 mr-4;
+      }
+      :deep(form input[type="text"]),
+      :deep(form input[type="tel"]) {
+        @apply w-full appearance-none px-3 py-2 border border-slate-300 rounded-md transition duration-150 ease-in-out text-xl placeholder-slate-400 mt-0;
+      }
+      :deep(form input[type="text"]:focus),
+      :deep(form input[type="tel"]:focus) {
+        @apply outline-none border-teal-300 ring ring-teal-300;
+      }
+      :deep(form button) {
+        @apply py-2 px-4 border border-transparent font-medium rounded-md text-white bg-amber-400 transition duration-150 ease-in-out outline-none flex-initial text-lg w-28 hover:bg-yellow-500 focus:outline-none focus:border-yellow-700 focus:ring focus:ring-yellow-300;
+      }
+    </style>
+
     <div>
       <div class="count">
         Go for it! You'll be volunteer #{@count}

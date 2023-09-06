@@ -1,3 +1,75 @@
+<style>
+  #shop {
+    @apply mt-8 max-w-3xl mx-auto text-center;
+  }
+  #shop #backdrop {
+    @apply fixed inset-0 bg-slate-500 bg-opacity-75;
+  }
+  #shop #cart {
+    @apply z-20 fixed inset-y-0 right-0 pointer-events-none shadow-xl;
+  }
+  #shop #cart .content {
+    @apply h-full relative w-screen max-w-xs bg-white pointer-events-auto py-6 px-8;
+  }
+  #shop #cart .content .header {
+    @apply flex items-baseline justify-between pb-6;
+  }
+  #shop #cart .content .header h2 {
+    @apply mb-0 text-xl font-medium text-slate-900;
+  }
+  #shop #cart .content .header button {
+    @apply rounded-md bg-white text-slate-400 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2;
+  }
+  #shop #cart .content .header button svg,
+  #shop #cart .content .header button .hero-x-mark {
+    @apply inline-flex w-5 h-5;
+  }
+  #shop #cart .content ul {
+    @apply -my-4 divide-y divide-slate-200 px-4;
+  }
+  #shop #cart .content ul li {
+    @apply flex items-center justify-between py-3;
+  }
+  #shop #cart .content ul li .product {
+    @apply p-4 text-3xl;
+  }
+  #shop #cart .content ul li .quantity {
+    @apply text-xl font-medium text-slate-600;
+  }
+  #shop .nav {
+    @apply -mt-8 flex items-center justify-end h-6;
+  }
+  #shop .nav button {
+    @apply cursor-pointer px-3 py-1 flex items-center justify-between bg-transparent border-transparent border-2 hover:border-slate-300;
+  }
+  #shop .nav button img,
+  #shop .nav button svg,
+  #shop .nav button .hero-shopping-cart {
+    @apply w-5 h-5 text-slate-600;
+  }
+  #shop .nav button .count {
+    @apply inline-block rounded-full bg-slate-600 px-2 py-1 text-white font-bold ml-1 text-xs tabular-nums;
+  }
+  #shop .products {
+    @apply mt-4 grid gap-6 grid-cols-2 sm:grid-cols-3;
+  }
+  #shop .products .product {
+    @apply p-3 border-4 border-transparent max-w-sm rounded bg-white overflow-hidden shadow-lg;
+  }
+  #shop .products .product .image {
+    @apply text-center text-5xl mb-2;
+  }
+  #shop .products .product .name {
+    @apply mb-6 text-center text-slate-900 font-medium text-lg;
+  }
+  #shop .products .product button {
+    @apply bg-slate-200 border border-transparent rounded-md py-2 px-8 text-sm font-medium text-slate-900 hover:bg-slate-300;
+  }
+  #shop .products .product.added {
+    @apply border-4 border-indigo-300 transition-colors;
+  }
+</style>
+
 <h1>Mike's Garage Sale</h1>
 <div id="shop">
   <div class="nav">
