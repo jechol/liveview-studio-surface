@@ -3,6 +3,7 @@ defmodule LiveViewStudioWeb.SandboxLive do
 
   import Number.Currency
   alias LiveViewStudio.Sandbox
+  alias LiveViewStudioWeb.Components, as: C
 
   def mount(_params, _session, socket) do
     socket =
@@ -59,24 +60,15 @@ defmodule LiveViewStudioWeb.SandboxLive do
         <div class="fields">
           <div>
             <label for="length">Length</label>
-            <div class="input">
-              <input type="number" name="length" value={@length}>
-              <span class="unit">feet</span>
-            </div>
+            <C.Meter name="length" value={@length} unit="feet" />
           </div>
           <div>
             <label for="width">Width</label>
-            <div class="input">
-              <input type="number" name="width" value={@width}>
-              <span class="unit">feet</span>
-            </div>
+            <C.Meter name="width" value={@width} unit="feet" />
           </div>
           <div>
             <label for="depth">Depth</label>
-            <div class="input">
-              <input type="number" name="depth" value={@depth}>
-              <span class="unit">inches</span>
-            </div>
+            <C.Meter name="depth" value={@depth} unit="inches" />
           </div>
         </div>
         <div class="weight">
